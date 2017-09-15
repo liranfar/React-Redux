@@ -1,5 +1,4 @@
-import React,{ Component } from 'react';
-import Link from "react-router-dom/es/Link";
+import React, {Component} from 'react';
 
 class Searchbar extends Component {
     render(){
