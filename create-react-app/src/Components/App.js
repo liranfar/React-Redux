@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../App.css';
 import NavigationBar from "./NavigationBar";
-import Main from "./main";
+import Routes from "./Routes";
 
 const App = () => (
             <div>
                 <NavigationBar/>
-                <Main/>
+                <Routes/>
             </div>
-        );
-
+        )
 export default App;

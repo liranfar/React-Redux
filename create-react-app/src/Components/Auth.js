@@ -6,7 +6,7 @@ class Auth extends Component {
         return(
             <ul className="nav navbar-nav navbar-right">
                 <li><Link to='/Login'><span className="glyphicon glyphicon-user"></span> Login</Link></li>
-                <li><Link to='/'><span className="glyphicon glyphicon-log-in"></span>   Sign-Up</Link></li>
+                <li><Link to='/Signup'><span className="glyphicon glyphicon-log-in"></span>   Sign-Up</Link></li>
             </ul>
         );
     }
