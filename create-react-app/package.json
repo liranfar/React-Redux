@@ -13,7 +13,8 @@
     "react-scripts": "1.0.13",
     "react-redux": "latest",
     "redux-thunk": "latest",
-    "redux": "latest"
+    "redux": "latest",
+    "prop-types": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
