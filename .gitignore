@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 manualinstallation/node_modules
 manualinstallation/testIgnore
 create-react-app/node_modules
 aa
 .idea/
+=======
+node_modules
+testIgnore
+>>>>>>> c91bb358f173c403941129a6f85c97ad951028fa
