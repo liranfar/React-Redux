@@ -16,7 +16,8 @@
     "react-scripts": "1.0.13",
     "redux": "latest",
     "redux-thunk": "latest",
-    "validator": "latest"
+    "validator": "latest",
+    "shortid": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
