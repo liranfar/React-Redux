@@ -4,6 +4,7 @@ import timezone from './Data/timezone';
 import PropTypes from 'prop-types';
 import validateInput from '../validators/signup';
 import TextFieldGroup from "./common/TextFieldGroup";
+import Redirect from "react-router-dom/es/Redirect";
 
 class SignupForm extends Component {
 
@@ -18,7 +19,8 @@ class SignupForm extends Component {
             passwordConfirm:'',
             timezone:'',
             errors: {},
-            isLoading: false
+            isLoading: false,
+            fireRedirect: false
             
         };
 
@@ -58,8 +60,10 @@ class SignupForm extends Component {
                             console.log(response.data);
                             this.setState({
                                 errors : response.data.results[0].name,
-                                isLoading : false
+                                isLoading : false,
+                                fireRedirect: true
                             });
+
                         }
                     )
                     .catch(
@@ -74,15 +78,18 @@ class SignupForm extends Component {
     render(){
 
         const options = map(timezone,(val,key) => <option key={val} value={val}> {key}</option>);
+        console.log(this.props.location);
         //grab errors from state
-        const { errors , username } = this.state;
+        const { errors , username , fireRedirect } = this.state;
+
+        const { from } = this.props.location || '/';
 
         return(
             <form onSubmit={this.onSubmit}>
                  <h1>Join us</h1>
                 <TextFieldGroup field="username" value={this.state.username} label="Username" type="text" onChange={this.onChange} error={errors.username}/>
-                <TextFieldGroup field="password" value={this.state.password} label="Password" type="text" onChange={this.onChange} error={errors.password}/>
-                <TextFieldGroup field="password" value={this.state.passwordConfirm} label="Username" type="text" onChange={this.onChange} error={errors.confirmPassword}/>
+                <TextFieldGroup field="password" value={this.state.password} label="Password" type="password" onChange={this.onChange} error={errors.password}/>
+                <TextFieldGroup field="passwordConfirm" value={this.state.passwordConfirm} label="Re-password" type="password" onChange={this.onChange} error={errors.confirmPassword}/>
                 <TextFieldGroup field="email" value={this.state.email} label="Email" type="text" onChange={this.onChange} error={errors.email}/>
                 <div className="form-group">
                     <label className="control-label">Timezone</label>
@@ -100,8 +107,11 @@ class SignupForm extends Component {
                          Sign up
                      </button>
                 </div>
+                {fireRedirect && (<Redirect to={from || '/'}/>)}
             </form>
-        );
+
+
+        )
     }
 
 }
