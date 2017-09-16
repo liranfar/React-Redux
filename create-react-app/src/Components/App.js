@@ -1,5 +1,4 @@
 import React from 'react';
-import '../App.css';
 import NavigationBar from "./NavigationBar";
 import Routes from "./Routes";
 
