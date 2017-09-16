@@ -15,7 +15,8 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.13",
     "redux": "latest",
-    "redux-thunk": "latest"
+    "redux-thunk": "latest",
+    "validator": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

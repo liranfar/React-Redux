@@ -1,8 +1,9 @@
-import React,{ Component } from 'react';
+import React, {Component} from 'react';
 import map from 'lodash/map';
 import timezone from './Data/timezone';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import validateInput from '../validators/signup';
+import TextFieldGroup from "./common/TextFieldGroup";
 
 class SignupForm extends Component {
 
@@ -25,30 +26,48 @@ class SignupForm extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    isValid() {
+
+       const {errors , isValid } = validateInput(this.state);
+
+       if(!isValid) {
+           this.setState({errors})
+       }
+
+       return isValid;
+
+    }
+
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
     }
 
     onSubmit(e) {
-            this.setState({
-                errors : {},
-                isLoading: true
-            });
 
             e.preventDefault();
-            this.props.userSignupRequest(this.state)
-                .then(
-                (response) => {
-                    console.log(response.data);
-                    this.setState({
-                        errors : response.data.results[0].name,
-                        isLoading : false
-                    });
-                }
-                )
-                .catch(
-                    (error) => {console.log(error.response);}
-                );
+
+            if(this.isValid()) {
+
+                this.setState({
+                    errors : {},
+                    isLoading: true
+                });
+                this.props.userSignupRequest(this.state)
+                    .then(
+                        (response) => {
+                            console.log(response.data);
+                            this.setState({
+                                errors : response.data.results[0].name,
+                                isLoading : false
+                            });
+                        }
+                    )
+                    .catch(
+                        (error) => {console.log(error.response);}
+                    );
+
+            }
+
         }
 
 
@@ -61,36 +80,10 @@ class SignupForm extends Component {
         return(
             <form onSubmit={this.onSubmit}>
                  <h1>Join us</h1>
-                <div className={classnames("form-group", {'has-error': errors.first})}>
-                    <label className="control-label">Username</label>
-                    <input
-                        type="text"
-                        name="username"
-                        className="form-control" value={this.state.username} onChange={this.onChange} />
-                    {/*{errors.username && <span className="help-block">{errors.username}</span>}*/}
-                    { errors && <span className="help-block">{errors.first}</span>}
-                </div>
-                <div className="form-group">
-                    <label className="control-label">Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        className="form-control" value={this.state.password} onChange={this.onChange} />
-                </div>
-                <div className="form-group">
-                    <label className="control-label">Re-Password</label>
-                    <input
-                        type="password"
-                        name="passwordConfirm"
-                        className="form-control" value={this.state.passwordConfirm} onChange={this.onChange} />
-                </div>
-                <div className="form-group">
-                    <label className="control-label">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        className="form-control" value={this.state.email} onChange={this.onChange} />
-                </div>
+                <TextFieldGroup field="username" value={this.state.username} label="Username" type="text" onChange={this.onChange} error={errors.username}/>
+                <TextFieldGroup field="password" value={this.state.password} label="Password" type="text" onChange={this.onChange} error={errors.password}/>
+                <TextFieldGroup field="password" value={this.state.passwordConfirm} label="Username" type="text" onChange={this.onChange} error={errors.confirmPassword}/>
+                <TextFieldGroup field="email" value={this.state.email} label="Email" type="text" onChange={this.onChange} error={errors.email}/>
                 <div className="form-group">
                     <label className="control-label">Timezone</label>
                     <select
@@ -110,6 +103,7 @@ class SignupForm extends Component {
             </form>
         );
     }
+
 }
 
 SignupForm.propTypes = {
