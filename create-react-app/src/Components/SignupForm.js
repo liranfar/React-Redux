@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import map from 'lodash/map';
 import timezone from './Data/timezone';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 class SignupForm extends Component {
 
@@ -14,7 +15,9 @@ class SignupForm extends Component {
             email:'',
             password:'',
             passwordConfirm:'',
-            timezone:''
+            timezone:'',
+            errors: {},
+            isLoading: false
             
         };
 
@@ -27,24 +30,45 @@ class SignupForm extends Component {
     }
 
     onSubmit(e) {
+            this.setState({
+                errors : {},
+                isLoading: true
+            });
+
             e.preventDefault();
-            this.props.userSignupRequest(this.state);
+            this.props.userSignupRequest(this.state)
+                .then(
+                (response) => {
+                    console.log(response.data);
+                    this.setState({
+                        errors : response.data.results[0].name,
+                        isLoading : false
+                    });
+                }
+                )
+                .catch(
+                    (error) => {console.log(error.response);}
+                );
         }
 
 
     render(){
 
         const options = map(timezone,(val,key) => <option key={val} value={val}> {key}</option>);
+        //grab errors from state
+        const { errors , username } = this.state;
 
         return(
             <form onSubmit={this.onSubmit}>
                  <h1>Join us</h1>
-                <div className="form-group">
+                <div className={classnames("form-group", {'has-error': errors.first})}>
                     <label className="control-label">Username</label>
                     <input
                         type="text"
                         name="username"
                         className="form-control" value={this.state.username} onChange={this.onChange} />
+                    {/*{errors.username && <span className="help-block">{errors.username}</span>}*/}
+                    { errors && <span className="help-block">{errors.first}</span>}
                 </div>
                 <div className="form-group">
                     <label className="control-label">Password</label>
@@ -79,7 +103,7 @@ class SignupForm extends Component {
 
                 </div>
                 <div className="form-group">
-                     <button className="btn btn-primary btn-lg">
+                     <button disabled={this.state.isLoading} className="btn btn-primary btn-lg">
                          Sign up
                      </button>
                 </div>

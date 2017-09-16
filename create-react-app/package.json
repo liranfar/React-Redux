@@ -5,16 +5,17 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
+    "classnames": "^2.2.5",
     "lodash": "^4.17.4",
+    "prop-types": "latest",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
+    "react-redux": "latest",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.13",
-    "react-redux": "latest",
-    "redux-thunk": "latest",
     "redux": "latest",
-    "prop-types": "latest"
+    "redux-thunk": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
