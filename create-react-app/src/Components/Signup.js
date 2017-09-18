@@ -28,4 +28,5 @@ Signup.propTypes = {
 
 //Redux
 //Here, we connect the Signup component(the props actually) to the Store state and to the dispatcher
+//null goes for the stateToProps and userSignupRequest , addFlashMessage  goes to dispatcher
 export default connect(null, { userSignupRequest , addFlashMessage })(Signup);

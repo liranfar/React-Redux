@@ -79,7 +79,6 @@ class SignupForm extends Component {
         }
 
     render(){
-
         const options = map(timezone,(val,key) => <option key={val} value={val}> {key}</option>);
         console.log(this.props.location);
         //grab errors from state
