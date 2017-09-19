@@ -1,0 +1,48 @@
+{
+  "name": "ReactExpress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon --watch server --exec babel-node -- index.js",
+    "dev": "webpack-dev-server --env.dev",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "nodemon": "^1.12.1",
+    "webpack": "^3.6.0",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.8.2"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "axios": "^0.16.2",
+    "bootstrap": "^3.3.7",
+    "react-bootstrap": "^0.31.3",
+    "classnames": "^2.2.5",
+    "express": "^4.15.4",
+    "lodash": "^4.17.4",
+    "prop-types": "latest",
+    "react-redux": "latest",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.13",
+    "redux": "latest",
+    "redux-thunk": "latest",
+    "shortid": "latest",
+    "validator": "latest"
+  }
+}
