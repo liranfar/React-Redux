@@ -8,7 +8,7 @@ class NavigationBar extends Component {
     render(){
         return(
             <nav className="navbar navbar-inverse">
-                <div className="container-fluid">.
+                <div className="container-fluid">
                     <SiteLogo/>
                     <MenuItems/>
                     <Auth/>

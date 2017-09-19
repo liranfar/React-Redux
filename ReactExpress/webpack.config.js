@@ -1,10 +1,22 @@
 import path from 'path';
+import webpack from 'webpack';
 
 export default {
-    entry: './client/index.js',
+    entry: [
+        'webpack-hot-middleware/client',
+        './client/index.js'
+    ],
     output: {
-        filename:'bundle.js'
+        filename:'bundle.js',
+        publicPath: '/',
+        path: '/'
     },
+    plugins: [
+        new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin()
+
+    ],
 
     module: {
         loaders : [
@@ -12,7 +24,7 @@ export default {
                 test: /\.js$/,
                 exclude:/node_modules/,
                 include: path.join(__dirname,'client'),
-                loader: 'babel-loader'
+                loaders: ['react-hot-loader','babel-loader']
             }
         ]
     },
