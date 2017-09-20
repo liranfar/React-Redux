@@ -59,7 +59,7 @@ class LoginForm extends Component {
                         (error) => {
                             console.log(error.response.data);
                             this.setState({
-                                errors: error.response.data,
+                                errors: error.response.data.errors,
                                 isLoading: false
 
                             });
@@ -82,6 +82,9 @@ class LoginForm extends Component {
         return(
             <form onSubmit={this.onSubmit}>
                 <h1>Login</h1>
+
+                { errors.form && <div className="alert alert-danger"> { errors.form }</div> }
+
                 <TextFieldGroup
                     field="identifier"
                     value={identifier}
