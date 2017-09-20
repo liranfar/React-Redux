@@ -5,7 +5,6 @@ export default function validateInput(data) {
 
     let errors = {};
 
-
     /*errors.username = 'This field is required';*/
 
     if(Validator.isEmpty(data.username)) {
