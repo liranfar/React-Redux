@@ -45,3 +45,11 @@ ReactDOM.render(
 // 5. For the top level component which is Signup for now, connect a state and a dispatch function to the props using "connect" method
 //  5.1 In addition, define propTypes and get the dispatch function from the props in render function ("connect" injects it to the props)
 //  5.2 If you want to pass it to a child component you have to copy propTypes declaration
+
+
+//Form Creation guidelines:
+// 1.form state: fields,errors,isLoading
+// 2.onSubmit,onChange
+// 3 form validation ( both client and server - reuse code )
+// 4.dispatch thunk action
+// 5.handle response
