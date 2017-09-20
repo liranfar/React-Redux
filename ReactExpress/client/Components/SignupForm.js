@@ -20,12 +20,14 @@ class SignupForm extends Component {
             timezone:'',
             errors: {},
             isLoading: false,
-            fireRedirect: false
+            fireRedirect: false,
+            invalid: false
             
         };
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.checkUserExists = this.checkUserExists.bind(this);
     }
 
     isValid() {
@@ -42,6 +44,29 @@ class SignupForm extends Component {
 
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
+    }
+
+    checkUserExists(e) {
+        const field = e.target.name;
+        const val = e.target.value;
+        if(val !== '') {
+            let errors = this.state.errors;
+            let invalid;
+            this.props.isUserExists(val).then(res => {
+                if(res.data.user){
+                    errors[field] = 'There is user with such ' + field;
+                    invalid = true;
+                }
+                else {
+                    errors[field] = '';
+                    invalid = false;
+                }
+                this.setState({
+                    errors,
+                    invalid
+                })
+            });
+        }
     }
 
     onSubmit(e) {
@@ -83,7 +108,9 @@ class SignupForm extends Component {
 
             }
 
-        }
+    }
+
+
 
     render(){
         const options = map(timezone,(val,key) => <option key={val} value={val}> {key}</option>);
@@ -96,10 +123,43 @@ class SignupForm extends Component {
         return(
             <form onSubmit={this.onSubmit}>
                  <h1>Join us</h1>
-                <TextFieldGroup field="username" value={this.state.username} label="Username" type="text" onChange={this.onChange} error={errors.username}/>
-                <TextFieldGroup field="password" value={this.state.password} label="Password" type="password" onChange={this.onChange} error={errors.password}/>
-                <TextFieldGroup field="passwordConfirm" value={this.state.passwordConfirm} label="Re-password" type="password" onChange={this.onChange} error={errors.passwordConfirm}/>
-                <TextFieldGroup field="email" value={this.state.email} label="Email" type="text" onChange={this.onChange} error={errors.email}/>
+                <TextFieldGroup
+                    field="username"
+                    value={this.state.username}
+                    label="Username"
+                    type="text"
+                    onChange={this.onChange}
+                    error={errors.username}
+                    checkUserExists={this.checkUserExists}
+                />
+
+                <TextFieldGroup
+                    field="password"
+                    value={this.state.password}
+                    label="Password"
+                    type="password"
+                    onChange={this.onChange}
+                    error={errors.password}
+                />
+
+                <TextFieldGroup
+                    field="passwordConfirm"
+                    value={this.state.passwordConfirm}
+                    label="Re-password"
+                    type="password"
+                    onChange={this.onChange}
+                    error={errors.passwordConfirm}/>
+
+                <TextFieldGroup
+                    field="email"
+                    value={this.state.email}
+                    label="Email"
+                    type="text"
+                    onChange={this.onChange}
+                    error={errors.email}
+                    checkUserExists={this.checkUserExists}
+                />
+
                 <div className={classnames('form-group', {'has-error': errors.timezone})}>
                     <label className="control-label">Timezone</label>
                     <select
@@ -112,7 +172,7 @@ class SignupForm extends Component {
 
                 </div>
                 <div className="form-group">
-                     <button disabled={this.state.isLoading} className="btn btn-primary btn-lg">
+                     <button disabled={this.state.isLoading || this.state.invalid} className="btn btn-primary btn-lg">
                          Sign up
                      </button>
                 </div>
@@ -127,7 +187,8 @@ class SignupForm extends Component {
 
 SignupForm.propTypes = {
     userSignupRequest : PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired
+    addFlashMessage: PropTypes.func.isRequired,
+    isUserExists: PropTypes.func.isRequired
 };
 
 export default SignupForm;
