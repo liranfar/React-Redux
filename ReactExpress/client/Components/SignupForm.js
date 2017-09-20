@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import map from 'lodash/map';
 import timezone from './Data/timezone';
 import PropTypes from 'prop-types';
-import validateInput from '../validators/signup';
+import validateInput from '../../shared/validation';
 import TextFieldGroup from "./common/TextFieldGroup";
 import Redirect from "react-router-dom/es/Redirect";
-
+import classnames from 'classnames';
 class SignupForm extends Component {
 
 
@@ -57,21 +57,28 @@ class SignupForm extends Component {
                 this.props.userSignupRequest(this.state)
                     .then(
                         (response) => {
-                            console.log(response.data);
+                            console.log(response);
                             this.props.addFlashMessage ({
                                 type: 'success',
                                 text: 'You signed up successfully'
                             });
+
                             this.setState({
-                                errors : response.data.results[0].name,
-                                isLoading : false,
-                                fireRedirect: true
+                                fireRedirect: true,
+                                isLoading : false
                             });
 
                         }
                     )
                     .catch(
-                        (error) => {console.log(error.response);}
+                        (error) => {
+                            console.log(error.response.data);
+                         this.setState({
+                                errors : error.response.data,
+                                isLoading : false
+
+                            });
+                        }
                     );
 
             }
@@ -91,9 +98,9 @@ class SignupForm extends Component {
                  <h1>Join us</h1>
                 <TextFieldGroup field="username" value={this.state.username} label="Username" type="text" onChange={this.onChange} error={errors.username}/>
                 <TextFieldGroup field="password" value={this.state.password} label="Password" type="password" onChange={this.onChange} error={errors.password}/>
-                <TextFieldGroup field="passwordConfirm" value={this.state.passwordConfirm} label="Re-password" type="password" onChange={this.onChange} error={errors.confirmPassword}/>
+                <TextFieldGroup field="passwordConfirm" value={this.state.passwordConfirm} label="Re-password" type="password" onChange={this.onChange} error={errors.passwordConfirm}/>
                 <TextFieldGroup field="email" value={this.state.email} label="Email" type="text" onChange={this.onChange} error={errors.email}/>
-                <div className="form-group">
+                <div className={classnames('form-group', {'has-error': errors.timezone})}>
                     <label className="control-label">Timezone</label>
                     <select
                         name="timezone"

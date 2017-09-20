@@ -10,8 +10,7 @@ const TextFieldGroup = ({field,value,label,error,type,onChange}) => {
                 type={type}
                 name={field}
                 className="form-control" value={value} onChange={onChange} />
-            {error && <span className="help-block">{error}</span>}
-            {/*{ errors && <span className="help-block">{errors.first}</span>}*/}
+            { error && <span className="help-block">{error}</span>}
         </div>
     );
 

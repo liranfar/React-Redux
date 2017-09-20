@@ -45,6 +45,7 @@
     "redux": "latest",
     "redux-thunk": "latest",
     "shortid": "latest",
-    "validator": "latest"
+    "validator": "latest",
+    "body-parser": "latest"
   }
 }
