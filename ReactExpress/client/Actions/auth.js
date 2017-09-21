@@ -1,9 +1,9 @@
 //ActionCreator
 import axios from 'axios';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import jwt from 'jsonwebtoken';
 import {setCurrentUser} from "./Creators/currentUser";
 import {addFlashMessage} from "./Creators/flashMessages";
+import { handleAuthorizationToken } from "../localStorage/tokenCheck";
 
 
 export function userLoginRequest(credentials) {
@@ -12,11 +12,7 @@ export function userLoginRequest(credentials) {
     return dispatch => {
         return axios.post(URL, credentials).then( res => {
             const token = res.data.token;
-            localStorage.setItem('jwtToken',token);
-            setAuthorizationToken(token);
-            console.log(jwt.decode(token));
-            dispatch(setCurrentUser(jwt.decode(token)));
-
+            handleAuthorizationToken(token,dispatch);
         });
     }
 }
@@ -31,6 +27,5 @@ export function userLogoutRequest() {
             text: 'You have logged out successfully'
         }))
     }
-
-
 }
+

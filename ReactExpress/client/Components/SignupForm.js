@@ -6,8 +6,13 @@ import validateInput from '../../shared/validation';
 import TextFieldGroup from "./common/TextFieldGroup";
 import Redirect from "react-router-dom/es/Redirect";
 import classnames from 'classnames';
-class SignupForm extends Component {
+import setAuthorizationToken from "../utils/setAuthorizationToken";
+import { store }from "../index";
+import {setCurrentUser} from "../Actions/Creators/currentUser";
+import jwt from "jsonwebtoken";
+import {handleAuthorizationToken} from "../localStorage/tokenCheck";
 
+class SignupForm extends Component {
 
     constructor(props) {
         super(props);
@@ -88,10 +93,19 @@ class SignupForm extends Component {
                                 text: 'You signed up successfully'
                             });
 
+                            /*localStorage.setItem('jwtToken',response.data.token);
+                            setAuthorizationToken(response.data.token);
+                            //console.log(jwt.decode(token));
+                            store.dispatch(setCurrentUser(jwt.decode(response.data.token)));*/
+
+                            handleAuthorizationToken(response.data.token,);
+
                             this.setState({
                                 fireRedirect: true,
                                 isLoading : false
                             });
+
+
 
                         }
                     )

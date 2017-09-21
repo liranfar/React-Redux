@@ -3,6 +3,8 @@ import commonValidations from "../shared/validation";
 import bcrypt from 'bcrypt';
 import User from '../models/user';
 import {isEmpty} from "lodash";
+import config from "../config";
+import jwt from "jsonwebtoken";
 
 let router = express.Router();
 
@@ -64,7 +66,19 @@ router.post('/',(req,res) => {
         User.forge({
             username,timezone,email,password_digest
         },{hasTimestamps: true }).save()
-            .then(user => res.json({ success: true}))
+            .then(user => {
+                    const token = jwt.sign(
+                        {
+                        id: user.get('id'),
+                        username: user.get('username')
+                        },
+                        config.jwtSecret
+                    );
+
+                res.json({success: true,
+                          token });
+                }
+            )
             .catch(err => res.status(500).json({ error: err}));
         }
     });
