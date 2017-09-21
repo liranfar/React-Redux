@@ -3,6 +3,7 @@ import axios from 'axios';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import jwt from 'jsonwebtoken';
 import {setCurrentUser} from "./Creators/currentUser";
+import {addFlashMessage} from "./Creators/flashMessages";
 
 
 export function userLoginRequest(credentials) {
@@ -18,4 +19,18 @@ export function userLoginRequest(credentials) {
 
         });
     }
+}
+
+export function userLogoutRequest() {
+    return dispatch => {
+        localStorage.removeItem('jwtToken');
+        setAuthorizationToken(false);
+        dispatch(setCurrentUser({}));
+        dispatch(addFlashMessage({
+            type: 'success',
+            text: 'You have logged out successfully'
+        }))
+    }
+
+
 }
