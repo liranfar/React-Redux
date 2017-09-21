@@ -56,3 +56,7 @@ ReactDOM.render(
 // 3 form validation ( both client and server - reuse code )
 // 4.dispatch thunk action
 // 5.handle response
+
+//There are 2 things we need to protect:
+//1. API endpoints
+//2. client side routes

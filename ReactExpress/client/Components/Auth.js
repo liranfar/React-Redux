@@ -16,7 +16,7 @@ class Auth extends Component {
         const userLinks = (
             <ul className="nav navbar-nav navbar-right">
                 <li><Link to='/' onClick={this.logout.bind(this)}><span className="glyphicon glyphicon-log-out"></span> Logout</Link></li>
-                <li><Link to='/'><span className="glyphicon glyphicon-user"></span> Hi {user.username}</Link></li>
+                <li><Link to='/'><span className="glyphicon glyphicon-user"></span> Hi { user && user.username }</Link></li>
             </ul>
         );
 
