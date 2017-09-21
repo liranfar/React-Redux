@@ -2,7 +2,7 @@ import React,{ Component } from 'react';
 import LoginForm  from './LoginForm';
 import { connect } from "react-redux";
 import {addFlashMessage} from "../Actions/Creators/flashMessages";
-import {userLoginRequest} from "../Actions/Creators/auth";
+import {userLoginRequest} from "../Actions/auth";
 import PropTypes from 'prop-types';
 
 class Login extends Component {
